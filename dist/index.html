@@ -4,9 +4,97 @@
     <title>A simple to do list</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    hello 
+    <div class="wrapper">
+      <header>
+        <section class="logo">
+          <a href="#">To-Do List</a>
+        </section>
+      </header>
+      <aside>
+        <nav id="task-filter">
+          <ul>
+            <a><li class="nav-button active">All</li></a>
+            <a><li class="nav-button">Today</li></a>
+            <a><li class="nav-button">Week</li></a>
+            <a><li class="nav-button">Important</li></a>
+            <a><li class="nav-button">Completed</li></a>
+          </ul>
+        </nav>
+
+        <section id="nav-projects">
+          <div id="projects-header">
+            <p id="projects-title">Projects <span id="projects-count">(2)</span></p>
+            <p id="projects-add">+</p>
+          </div>
+          <hr />
+          <ul>
+            <a><li class="nav-button">New React Site</li></a>
+            <a><li class="nav-button">Kitchen Changes</li></a>
+          </ul>
+        </section>
+      </aside>
+      <main>
+        <section id="task-header">
+          <h2>Today</h2>
+        </section>
+        <section id="task-container">
+          <article class="task">
+            <p class="task-title">
+            This is a task that needs to be done.
+            </p>
+            <div class="task-controls">
+              <span class="date">25-12-2022</span>
+              <i class="fa-solid fa-pen"></i>
+              <i class="fa-solid fa-trash"></i>
+              <i class="fa-solid fa-chevron-down"></i>
+              <i class="fa-solid fa-chevron-up"></i>
+            </div>
+          </article>
+          <article class="task priority-medium">
+            <p class="task-title">
+            This is a task that needs to be done.
+            </p>
+            <div class="task-controls">
+              <span class="date">25-12-2022</span>
+              <i class="fa-solid fa-pen"></i>
+              <i class="fa-solid fa-trash"></i>
+              <i class="fa-solid fa-chevron-down"></i>
+              <i class="fa-solid fa-chevron-up"></i>
+            </div>
+          </article>
+          <article class="task priority-high">
+            <p class="task-title">
+            This is a task that needs to be done.
+            </p>
+            <div class="task-controls">
+              <span class="date">25-12-2022</span>
+              <i class="fa-solid fa-pen"></i>
+              <i class="fa-solid fa-trash"></i>
+              <i class="fa-solid fa-chevron-down"></i>
+              <i class="fa-solid fa-chevron-up"></i>
+            </div>
+          </article>
+          <article class="task completed">
+            <p class="task-title">
+            This is a task that needs to be done.
+            </p>
+            <div class="task-controls">
+              <span class="date">25-12-2022</span>
+              <i class="fa-solid fa-pen"></i>
+              <i class="fa-solid fa-trash"></i>
+              <i class="fa-solid fa-chevron-down"></i>
+              <i class="fa-solid fa-chevron-up"></i>
+            </div>
+          </article>
+        </section>
+      </main>
+      <footer>footer</footer>
+    </div>
   </body>
   <script src="bundle.js"></script>
 </html>
