@@ -53,14 +53,16 @@ header {
   display: flex;
   align-items: center;
 
-  background-color: var(--mantle);
+  background-color: var(--crust);
+
+  border-bottom: 6px solid var(--mauve);
 }
 
 header .logo {
-  color: var(--mauve);
+  color: var(--text);
   font-size: 1.5rem;
   font-weight: 700;
-  padding: 0 20px;
+  padding: 0 40px;
 }
 
 /* Sidebar */
@@ -90,14 +92,16 @@ aside ul {
 }
 
 .nav-button:not(.active):hover {
-  color: var(--mantle);
-  background-color: var(--lavender);
+  color: var(--lavender);
+  background-color: var(--mantle);
+  border-radius: 8px;
 }
 
 .active {
   font-weight: 700;
   color: var(--mantle);
   background-color: var(--mauve);
+  border-radius: 8px;
 }
 
 #nav-projects hr {
@@ -157,14 +161,64 @@ main {
 }
 
 .task {
-  display: flex;
-  justify-content: space-between;
-
-  background-color: var(--mantle);
+  background-color: var(--crust);
 
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
+}
+
+.task-snippet {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-title {
+  padding: 0;
+  margin: 0;
+}
+
+.task-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-controls svg {
+  cursor: pointer;
+}
+
+.task-details {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  margin-top: 10px;
+}
+
+.task-bubble {
+  background-color: var(--mantle);
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
+.task-bubble-header {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 5px 0;
+  padding: 0;
+}
+
+.task-bubble-text {
+  margin: 0;
+  padding: 0;
+}
+
+.date {
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .priority-medium {
@@ -182,20 +236,8 @@ main {
   background-color: var(--green);
 }
 
-.task-title {
-  padding: 0;
-  margin: 0;
-}
-
-.task-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.date {
-  font-size: 0.8rem;
-  font-weight: 700;
+.hide {
+  display: none;
 }
 
 /* Footer */
@@ -208,7 +250,7 @@ footer {
 .wrapper {
   display: grid;
   grid-template-columns: 300px 3fr;
-  grid-template-rows: 75px 1fr 75px;
+  grid-template-rows: 50px 1fr 75px;
   grid-template-areas: 
     "header header"
     "sidebar main"
