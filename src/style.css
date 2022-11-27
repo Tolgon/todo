@@ -184,8 +184,14 @@ main {
   gap: 10px;
 }
 
-.task-controls svg {
+.task-controls button {
+  font-size: 1rem;
+  color: inherit;
+  background: none;
+  border: none;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 
 .task-details {
