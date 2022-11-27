@@ -2,7 +2,7 @@ import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
 import '@fortawesome/fontawesome-free/js/regular'
 
-(function initiateButtonListeners() {
+(function initiateButtons() {
   const navButtons = document.querySelectorAll(".nav-button");
   const taskExpandButtons = document.querySelectorAll(".fa-expand");
   const taskCollapseButtons = document.querySelectorAll(".fa-collapse");
@@ -51,3 +51,6 @@ import '@fortawesome/fontawesome-free/js/regular'
   }
 })();
 
+(function intiateTasks() {
+  console.log("hi");
+})();
