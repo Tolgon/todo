@@ -17,14 +17,14 @@ import '@fortawesome/fontawesome-free/js/regular'
 
   taskExpandButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-      let index = e.target.parentNode.parentNode.parentNode.parentNode.dataset.index;
+      let index = e.target.closest("article").dataset.index;
       expandDetails(index);
     })
   })
 
   taskCollapseButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-      let index = e.target.parentNode.parentNode.parentNode.parentNode.dataset.index;
+      let index = e.target.closest("article").dataset.index;
       collapseDetails(index);
     })
   })
@@ -52,5 +52,5 @@ import '@fortawesome/fontawesome-free/js/regular'
 })();
 
 (function intiateTasks() {
-  console.log("hi");
+
 })();

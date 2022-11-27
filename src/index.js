@@ -9,5 +9,3 @@ let tasks = [
     projects: [ "New React Page", "Kitchen Renovations" ],
   }
 ];
-
-console.log(tasks);
