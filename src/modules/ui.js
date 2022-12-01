@@ -1,47 +1,57 @@
+import { formatTaskDates, getTasks } from './data.js';
+
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
-import '@fortawesome/fontawesome-free/js/regular'
+// import '@fortawesome/fontawesome-free/js/regular'
 
-(function initiateButtons() {
+function initiateButtons() {
   const navButtons = document.querySelectorAll(".nav-button");
-  const taskExpandButtons = document.querySelectorAll(".fa-expand");
-  const taskCollapseButtons = document.querySelectorAll(".fa-collapse");
+  const taskView = document.querySelectorAll(".task");
   const taskDetailedView = document.querySelectorAll(".task-details");
+  const completeButtons = document.querySelectorAll(".fa-complete");
 
   navButtons.forEach(button => {
     button.addEventListener("click", (e) => {
       if(e.target.classList.contains("active")) return;
-      setActiveButton(button);
+      setActiveNavButton(button);
     })
   })
 
-  taskExpandButtons.forEach(button => {
-    button.addEventListener("click", (e) => {
+  taskView.forEach(task => {
+    task.addEventListener("click", (e) => {
       let index = e.target.closest("article").dataset.index;
-      expandDetails(index);
+      toggleTaskDetails(index);
     })
   })
 
-  taskCollapseButtons.forEach(button => {
+  completeButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-      let index = e.target.closest("article").dataset.index;
-      collapseDetails(index);
+      e.stopPropagation();
+      let index = e.target.closest("article").classList;
+      console.log(index);
+      completeTaskView(index);
     })
   })
 
-  function expandDetails(index) {
-    taskExpandButtons[index].classList.add("hide");
-    taskCollapseButtons[index].classList.remove("hide");
-    taskDetailedView[index].classList.remove("hide");
+  function completeTaskView(index) {
+        
   }
 
-  function collapseDetails(index) {
-    taskCollapseButtons[index].classList.add("hide");
-    taskExpandButtons[index].classList.remove("hide");
-    taskDetailedView[index].classList.add("hide");
+  function removeTaskView(index) {
+    console.log(index);
   }
 
-  function setActiveButton(button) {
+
+
+  function toggleTaskDetails(index) {
+    if(taskDetailedView[index].classList.contains("hide")) {
+      taskDetailedView[index].classList.remove("hide");
+    } else {
+      taskDetailedView[index].classList.add("hide");
+    }
+  }
+
+  function setActiveNavButton(button) {
     navButtons.forEach(button => {
       if (button !== this) {
         button.classList.remove("active");
@@ -49,8 +59,62 @@ import '@fortawesome/fontawesome-free/js/regular'
     })
     button.classList.add("active");
   }
-})();
+}
 
-(function intiateTasks() {
+(function createTaskDom() {
+  let tasks = getTasks();
+  tasks = formatTaskDates(tasks);
+  
+  const taskContainer = document.getElementById("task-container");
 
+  for(let i = 0; i < tasks.length; i++){
+    const taskArticle = document.createElement("article");
+    taskArticle.dataset.index = i;
+    taskArticle.classList.add("task");
+
+    if(tasks[i].priority == "high") {
+      taskArticle.classList.add("priority-high");
+    } else if(tasks[i].priority == "medium") {
+      taskArticle.classList.add("priority-medium");
+    } else if(tasks[i].priority == "completed") {
+      taskArticle.classList.add("completed");
+    }
+
+    taskContainer.appendChild(taskArticle);
+    taskArticle.innerHTML = `
+<div class="task-snippet">
+<p class="task-title">
+${tasks[i].title}
+</p>
+<div class="task-controls">
+<span class="date">${tasks[i].date}</span>
+<button class="fa-edit"><i class="fa-solid fa-pen"></i></button>
+<button class="fa-delete"><i class="fa-solid fa-trash"></i></button>
+<button class="fa-complete"><i class="fa-solid fa-check"></i></button>
+<button class="fa-restore hide"><i class="fa-solid fa-rotate-left"></i></button>
+</div>
+</div>
+<div class="task-details hide">
+<div class="task-bubble">
+<h4 class="task-bubble-header">Description:</h4>
+<p class="task-bubble-text">
+${tasks[i].description}
+</p>
+</div>
+<div class="task-bubble">
+<h4 class="task-bubble-header">Due Date:</h4>
+<p class="task-bubble-text">
+${tasks[i].date}
+</p>
+</div>
+<div class="task-bubble">
+<h4 class="task-bubble-header">Projects:</h4>
+<p class="task-bubble-text">
+${tasks[i].projects}
+</p>
+</div>
+</div>
+`
+  }
+  initiateButtons();
 })();

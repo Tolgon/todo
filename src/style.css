@@ -55,7 +55,7 @@ header {
 
   background-color: var(--crust);
 
-  border-bottom: 6px solid var(--mauve);
+  border-bottom: 6px solid var(--lavender);
 }
 
 header .logo {
@@ -78,6 +78,10 @@ aside {
   margin-bottom: 90px;
 }
 
+aside a {
+  color: var(--text);
+}
+
 aside ul {
   display: grid;
   grid-template-columns: 1fr;
@@ -86,26 +90,30 @@ aside ul {
   padding: 0;
 }
 
+aside svg {
+  margin-right: 5px;
+}
+
 .nav-button {
   cursor: pointer;
   padding: 10px 20px;
 }
 
 .nav-button:not(.active):hover {
-  color: var(--lavender);
+  color: var(--text);
   background-color: var(--mantle);
   border-radius: 8px;
 }
 
 .active {
   font-weight: 700;
-  color: var(--mantle);
-  background-color: var(--mauve);
+  color: var(--text);
+  background-color: var(--mantle);
   border-radius: 8px;
 }
 
 #nav-projects hr {
-  color: var(--mauve);
+  color: var(--lavender);
 }
 
 #projects-header {
@@ -118,16 +126,17 @@ aside ul {
 }
 
 #projects-add {
-  color: var(--mauve);
+  color: var(--lavender);
   font-weight: 700;
   text-align: center;
-  border: 2px solid var(--mauve);
+  border: 2px solid var(--lavender);
+  border-radius: 10px;
   cursor: pointer;
 }
 
 #projects-add:hover {
-  color: var(--lavender);
-  border: 2px solid var(--lavender);
+  color: var(--mauve);
+  border: 2px solid var(--mauve);
 }
 
 #projects-add span {
@@ -144,33 +153,56 @@ main {
 
 #task-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-
+  
   margin-bottom: 30px;
 }
 
 #task-header h2 {
+  vertical-align: center;
   text-decoration: underline;
   margin: 0;
 }
 
+#task-add {
+  color: var(--lavender);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid var(--lavender);
+  border-radius: 10px;
+  cursor: pointer;
+
+  padding: 10px 10px;
+  margin-left: 20px;
+}
+
+#task-add:hover {
+  color: var(--mauve);
+  border: 2px solid var(--mauve);
+}
+
 #task-container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .task {
   background-color: var(--crust);
 
+  cursor: pointer;
+
   border-radius: 20px;
-  padding: 20px;
+  padding: 10px 20px;
   margin-bottom: 20px;
 }
 
 .task-snippet {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .task-title {
@@ -181,7 +213,16 @@ main {
 .task-controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+}
+
+.task-controls svg {
+  padding: 8px;
+}
+
+.task-controls svg:hover {
+  color: var(--crust);
+  background-color: var(--text);
+  border-radius: 15px;
 }
 
 .task-controls button {
@@ -225,6 +266,7 @@ main {
 .date {
   font-size: 0.8rem;
   font-weight: 700;
+  margin-right: 5px;
 }
 
 .priority-medium {
@@ -232,14 +274,44 @@ main {
   background-color: var(--yellow);
 }
 
+.priority-medium .task-bubble {
+  color: var(--mantle);
+  background-color: #ffeec8;
+}
+
+.priority-medium svg:hover {
+  color: var(--yellow);
+  background-color: var(--mantle);
+}
+
 .priority-high {
   color: var(--mantle);
   background-color: var(--red);
 }
 
+.priority-high .task-bubble {
+  color: var(--mantle);
+  background-color: #ffa4bd;
+}
+
+.priority-high svg:hover {
+  color: var(--red);
+  background-color: var(--mantle);
+}
+
 .completed {
   color: var(--mantle);
   background-color: var(--green);
+}
+
+.completed .task-bubble {
+  color: var(--mantle);
+  background-color: #a8eea2;
+}
+
+.completed svg:hover {
+  color: var(--green);
+  background-color: var(--mantle);
 }
 
 .hide {

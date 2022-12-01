@@ -18,11 +18,11 @@
       <aside>
         <nav id="task-filter">
           <ul>
-            <a><li class="nav-button active">All</li></a>
-            <a><li class="nav-button">Today</li></a>
-            <a><li class="nav-button">Week</li></a>
-            <a><li class="nav-button">Important</li></a>
-            <a><li class="nav-button">Completed</li></a>
+            <a><li class="nav-button active"><i class="fa-solid fa-calendar-days"></i> All</li></a>
+            <a><li class="nav-button"><i class="fa-solid fa-calendar-day"></i> Today</li></a>
+            <a><li class="nav-button"><i class="fa-solid fa-calendar-week"></i> Week</li></a>
+            <a><li class="nav-button"><i class="fa-solid fa-circle-exclamation"></i> Important</li></a>
+            <a><li class="nav-button"><i class="fa-solid fa-check-double"></i> Completed</li></a>
           </ul>
         </nav>
 
@@ -39,44 +39,10 @@
         </section>
       </aside>
       <main>
-        <section id="task-header">
-          <h2>Today</h2>
-        </section>
         <section id="task-container">
-          <article class="task" data-index="0">
-            <div class="task-snippet">
-              <p class="task-title">
-              This is a task that needs to be done.
-              </p>
-              <div class="task-controls">
-                <span class="date">25-12-2022</span>
-                <button class="fa-edit"><i class="fa-solid fa-pen"></i></button>
-                <button class="fa-delete"><i class="fa-solid fa-trash"></i></button>
-                <button class="fa-expand"><i class="fa-solid fa-chevron-down"></i></button>
-                <button class="fa-collapse hide"><i class="fa-solid fa-chevron-up"></i></button>
-              </div>
-            </div>
-            <div class="task-details hide">
-              <div class="task-bubble">
-                <h4 class="task-bubble-header">Description:</h4>
-                <p class="task-bubble-text">
-                Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat. 
-                </p>
-              </div>
-              <div class="task-bubble">
-                <h4 class="task-bubble-header">Due Date:</h4>
-                <p class="task-bubble-text">
-                25-12-2022
-                </p>
-              </div>
-              <div class="task-bubble">
-                <h4 class="task-bubble-header">Project:</h4>
-                <p class="task-bubble-text">
-                Project Name Goes Here
-                </p>
-              </div>
-            </div>
-          </article>
+          <section id="task-header">
+            <h2>Today</h2> <div id="task-add">Add New Task</div>
+          </section>
         </section>
       </main>
       <footer>footer</footer>
