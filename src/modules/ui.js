@@ -1,4 +1,4 @@
-import { formatTaskDates, getTasks } from './data.js';
+import { filterTasks, formatTaskDates, getTasks } from './data.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -14,6 +14,7 @@ function initiateButtons() {
     button.addEventListener("click", (e) => {
       if(e.target.classList.contains("active")) return;
       setActiveNavButton(button);
+      createTasksDOM(button.dataset.filter);
     })
   })
 
@@ -41,8 +42,6 @@ function initiateButtons() {
     console.log(index);
   }
 
-
-
   function toggleTaskDetails(index) {
     if(taskDetailedView[index].classList.contains("hide")) {
       taskDetailedView[index].classList.remove("hide");
@@ -61,11 +60,18 @@ function initiateButtons() {
   }
 }
 
-(function createTaskDom() {
-  let tasks = getTasks();
-  tasks = formatTaskDates(tasks);
-  
+function createTasksDOM(filter) {
   const taskContainer = document.getElementById("task-container");
+
+  if(!filter) filter = "all";
+  taskContainer.innerHTML = `
+<section id="task-header">
+<h2>${filter}</h2> <div id="task-add">Add New Task</div>
+</section>
+`
+
+  let tasks = getTasks(filter);
+  tasks = formatTaskDates(tasks);
 
   for(let i = 0; i < tasks.length; i++){
     const taskArticle = document.createElement("article");
@@ -117,4 +123,6 @@ ${tasks[i].projects}
 `
   }
   initiateButtons();
-})();
+};
+
+export { createTasksDOM }

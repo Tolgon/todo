@@ -1,3 +1,6 @@
 import './style.css';
-import './modules/ui.js'
+import { createTasksDOM } from './modules/ui.js';
 
+(function initiateSite() {
+  createTasksDOM();
+})();

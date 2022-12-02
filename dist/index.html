@@ -18,11 +18,11 @@
       <aside>
         <nav id="task-filter">
           <ul>
-            <a><li class="nav-button active"><i class="fa-solid fa-calendar-days"></i> All</li></a>
-            <a><li class="nav-button"><i class="fa-solid fa-calendar-day"></i> Today</li></a>
-            <a><li class="nav-button"><i class="fa-solid fa-calendar-week"></i> Week</li></a>
-            <a><li class="nav-button"><i class="fa-solid fa-circle-exclamation"></i> Important</li></a>
-            <a><li class="nav-button"><i class="fa-solid fa-check-double"></i> Completed</li></a>
+            <a><li data-filter="all" class="nav-button active"><i class="fa-solid fa-calendar-days"></i> All</li></a>
+            <a><li data-filter="today" class="nav-button"><i class="fa-solid fa-calendar-day"></i> Today</li></a>
+            <a><li data-filter="week" class="nav-button"><i class="fa-solid fa-calendar-week"></i> Week</li></a>
+            <a><li data-filter="important" class="nav-button"><i class="fa-solid fa-circle-exclamation"></i> Important</li></a>
+            <a><li data-filter="completed" class="nav-button"><i class="fa-solid fa-check-double"></i> Completed</li></a>
           </ul>
         </nav>
 
@@ -40,9 +40,6 @@
       </aside>
       <main>
         <section id="task-container">
-          <section id="task-header">
-            <h2>Today</h2> <div id="task-add">Add New Task</div>
-          </section>
         </section>
       </main>
       <footer>footer</footer>

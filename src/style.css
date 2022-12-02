@@ -162,6 +162,7 @@ main {
 #task-header h2 {
   vertical-align: center;
   text-decoration: underline;
+  text-transform: capitalize;
   margin: 0;
 }
 
