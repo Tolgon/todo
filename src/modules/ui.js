@@ -1,20 +1,24 @@
-import { filterTasks, formatTaskDates, getTasks } from './data.js';
+import { completeTaskToggle, deleteTask, filterTasks } from './data.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
 // import '@fortawesome/fontawesome-free/js/regular'
 
+let currentFilter = null;
+
 function initiateButtons() {
   const navButtons = document.querySelectorAll(".nav-button");
   const taskView = document.querySelectorAll(".task");
   const taskDetailedView = document.querySelectorAll(".task-details");
+  const deleteButtons = document.querySelectorAll(".fa-delete");
   const completeButtons = document.querySelectorAll(".fa-complete");
 
   navButtons.forEach(button => {
     button.addEventListener("click", (e) => {
       if(e.target.classList.contains("active")) return;
       setActiveNavButton(button);
-      createTasksDOM(button.dataset.filter);
+      currentFilter = button.dataset.filter;
+      createTasksDOM(currentFilter);
     })
   })
 
@@ -25,17 +29,30 @@ function initiateButtons() {
     })
   })
 
+  deleteButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      let index = e.target.closest("article").dataset.index;
+      deleteTask(index);
+    })
+  })
+
   completeButtons.forEach(button => {
     button.addEventListener("click", (e) => {
       e.stopPropagation();
-      let index = e.target.closest("article").classList;
-      console.log(index);
+      let index = e.target.closest("article").dataset.index;
       completeTaskView(index);
     })
   })
 
   function completeTaskView(index) {
-        
+    if(taskView[index].classList.contains("completed")) {
+      taskView[index].classList.remove("completed");
+      completeTaskToggle(index);
+    } else {
+      taskView[index].classList.add("completed");
+      completeTaskToggle(index);
+    }
   }
 
   function removeTaskView(index) {
@@ -62,18 +79,16 @@ function initiateButtons() {
 
 function createTasksDOM(filter) {
   const taskContainer = document.getElementById("task-container");
+  const filterTitle = document.getElementById("filter-title");
 
   if(!filter) filter = "all";
-  taskContainer.innerHTML = `
-<section id="task-header">
-<h2>${filter}</h2> <div id="task-add">Add New Task</div>
-</section>
-`
+  filterTitle.innerHTML = filter;
+  taskContainer.innerHTML = "";
 
-  let tasks = getTasks(filter);
-  tasks = formatTaskDates(tasks);
+  let tasks = filterTasks(filter);
+  // tasks = formatTaskDates(tasks);
 
-  for(let i = 0; i < tasks.length; i++){
+  for(let i = 0; i < tasks.length; i++) {
     const taskArticle = document.createElement("article");
     taskArticle.dataset.index = i;
     taskArticle.classList.add("task");
@@ -122,7 +137,8 @@ ${tasks[i].projects}
 </div>
 `
   }
+
   initiateButtons();
 };
 
-export { createTasksDOM }
+export { currentFilter, createTasksDOM }

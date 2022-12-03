@@ -1,87 +1,65 @@
 import { compareAsc, format, isThisWeek, isToday } from "date-fns";
+import { tasksDB } from './fake_db.js';
+import { createTasksDOM, currentFilter } from "./ui.js";
 
-// Fake Data to get started.
-function getTasks(filter) {
-  let tasks = [
-    {
-      title: "This is a task.",
-      date: new Date(2022, 11, 2),
-      description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-      priority: "normal",
-      projects: [ "New React Page", "Kitchen Renovations" ],
-    },
-    {
-      title: "This is a high priority task.",
-      date: new Date(2022, 10, 30),
-      description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-      priority: "high",
-      projects: [ "New React Page", "Kitchen Renovations" ],
-    },
-    {
-      title: "This is a medium priority task.",
-      date: new Date(2022, 11, 4),
-      description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-      priority: "medium",
-      projects: [ "New React Page", "Kitchen Renovations" ],
-    },
-    {
-      title: "This is a completed task.",
-      date: new Date(2022, 11, 2),
-      description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-      priority: "completed",
-      projects: [ "New React Page", "Kitchen Renovations" ],
-    },
-    {
-      title: "This is a normal priority task.",
-      date: new Date(2015, 3, 5),
-      description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-      priority: "normal",
-      projects: [ "New React Page", "Kitchen Renovations" ],
-    },
-    {
-      title: "This is a completed task.",
-      date: new Date(2022, 0, 4),
-      description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-      priority: "completed",
-      projects: [ "New React Page", "Kitchen Renovations" ],
-    },
-  ];
-  
-  let tasksLength = tasks.length;
+let tasks = null;
+let tasksFiltered = [];
+// Future logic to fetch external data here
+function getTasks() {
+  let tasksFetched = tasksDB;
 
-  if(filter !== "all") {
-    if(filter == "today") {
-      for(let i = 0; i < tasksLength; i++) {
-        tasks = tasks.filter(task => isToday(task.date));
-      }
-    } else if(filter == "week") {
-      for(let i = 0; i < tasksLength; i++) {
-        tasks = tasks.filter(task => isThisWeek(task.date));
-      }
-    } else if(filter == "important") {
-      for(let i = 0; i < tasksLength; i++) {
-        tasks = tasks.filter(task => task.priority == "high");
-      }
-    } else if(filter == "completed") {
-      for(let i = 0; i < tasksLength; i++) {
-        tasks = tasks.filter(task => task.priority == "completed");
-      }
-    }
+  return tasksFetched;
+}
+
+function filterTasks(filter) {
+  if(!tasks) {
+    tasks = getTasks();
   }
 
-  tasks.sort((a, b) => {
+  if(filter === "today") {
+    tasksFiltered = tasks.filter(task => isToday(task.date));
+  } else if(filter === "week") {
+    tasksFiltered = tasks.filter(task => isThisWeek(task.date));
+  } else if(filter === "important") {
+    tasksFiltered = tasks.filter(task => task.priority == "high");
+  } else if(filter === "completed") {
+    tasksFiltered = tasks.filter(task => task.priority == "completed");
+  } else {
+    tasksFiltered = tasks;
+  }
+
+  tasksFiltered.sort((a, b) => {
     return compareAsc(a.date, b.date); 
   })
 
-  return tasks;
+  console.log(tasksFiltered);
+  return tasksFiltered;
 }
 
-function formatTaskDates(tasks) {
-  for(let i = 0; i < tasks.length; i++) {
-    tasks[i].date = format(tasks[i].date, 'dd-MM-yyyy');
+function parseDatesISO(arr) {
+
+}
+
+function formatTaskDates(arr) {
+  for(let i = 0; i < arr.length; i++) {
+    arr[i].date = format(arr[i].date, 'dd-MM-yyyy');
   }
 
-  return tasks;
+  return arr;
 }
 
-export { getTasks, formatTaskDates }
+function completeTaskToggle(index) {
+  if(tasksFiltered[index].priority === "completed") {
+    tasksFiltered[index].priority = "normal";
+  } else {
+    tasksFiltered[index].priority = "completed";
+  }
+  createTasksDOM(currentFilter);
+}
+
+function deleteTask(index) {
+  tasksFiltered.splice(index, 1);
+  createTasksDOM(currentFilter);
+}
+
+export { filterTasks, formatTaskDates, completeTaskToggle, deleteTask }
