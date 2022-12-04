@@ -1,4 +1,4 @@
-import { completeTaskToggle, deleteTask, filterTasks } from './data.js';
+import { completeTaskToggle, deleteTask, filterTasks, formatTaskDates } from './data.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -88,7 +88,7 @@ function createTasksDOM(filter) {
   taskContainer.innerHTML = "";
 
   tasks = filterTasks(filter);
-  // tasks = formatTaskDates(tasks);
+  let dateArray = formatTaskDates(tasks);
 
   for(let i = 0; i < tasks.length; i++) {
     const taskArticle = document.createElement("article");
@@ -110,7 +110,7 @@ function createTasksDOM(filter) {
 ${tasks[i].title}
 </p>
 <div class="task-controls">
-<span class="date">${tasks[i].date}</span>
+<span class="date">${dateArray[i]}</span>
 <button class="fa-edit"><i class="fa-solid fa-pen"></i></button>
 <button class="fa-delete"><i class="fa-solid fa-trash"></i></button>
 <button class="fa-complete"><i class="fa-solid fa-check"></i></button>
@@ -127,7 +127,7 @@ ${tasks[i].description}
 <div class="task-bubble">
 <h4 class="task-bubble-header">Due Date:</h4>
 <p class="task-bubble-text">
-${tasks[i].date}
+${dateArray[i]}
 </p>
 </div>
 <div class="task-bubble">

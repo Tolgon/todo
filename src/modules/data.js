@@ -1,4 +1,4 @@
-import { compareAsc, format, isThisWeek, isToday } from "date-fns";
+import { compareAsc, format, isThisWeek, isToday, parseISO } from "date-fns";
 import { createTasksDOM, currentFilter } from "./ui.js";
 import { tasksDB } from './fake_db.js';
 
@@ -41,15 +41,12 @@ function filterTasks(filter) {
   return tasksFiltered;
 }
 
-function parseDatesISO(arr) {
-
-}
-
 function formatTaskDates(arr) {
+  let dateArray = [];
   for(let i = 0; i < arr.length; i++) {
-    arr[i].date = format(arr[i].date, 'dd-MM-yyyy');
+    dateArray.push(format(arr[i].date, 'dd-MM-yyyy'));
   }
-  return arr;
+  return dateArray;
 }
 
 function completeTaskToggle(index) {
