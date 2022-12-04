@@ -77,6 +77,8 @@ function initiateButtons() {
   }
 }
 
+let tasks = [];
+
 function createTasksDOM(filter) {
   const taskContainer = document.getElementById("task-container");
   const filterTitle = document.getElementById("filter-title");
@@ -85,7 +87,7 @@ function createTasksDOM(filter) {
   filterTitle.innerHTML = filter;
   taskContainer.innerHTML = "";
 
-  let tasks = filterTasks(filter);
+  tasks = filterTasks(filter);
   // tasks = formatTaskDates(tasks);
 
   for(let i = 0; i < tasks.length; i++) {

@@ -62,7 +62,10 @@ function completeTaskToggle(index) {
 }
 
 function deleteTask(index) {
-  tasksFiltered.splice(index, 1);
+  let id = tasksFiltered[index].id;
+  tasks = tasks.filter((task) => {
+    return task.id !== id;
+  })
   createTasksDOM(currentFilter);
 }
 
