@@ -1,6 +1,7 @@
 // Fake data to get started.
 export let tasksDB = [
   {
+    id: 1,
     title: "This is a task.",
     date: new Date(2022, 11, 3),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
@@ -8,6 +9,7 @@ export let tasksDB = [
     projects: [ "New React Page", "Kitchen Renovations" ],
   },
   {
+    id: 2,
     title: "This is a high priority task.",
     date: new Date(2022, 10, 30),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
@@ -15,6 +17,7 @@ export let tasksDB = [
     projects: [ "New React Page", "Kitchen Renovations" ],
   },
   {
+    id: 3,
     title: "This is a medium priority task.",
     date: new Date(2022, 11, 4),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
@@ -22,6 +25,7 @@ export let tasksDB = [
     projects: [ "New React Page", "Kitchen Renovations" ],
   },
   {
+    id: 4,
     title: "This is a completed task 1.",
     date: new Date(2022, 11, 3),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
@@ -29,6 +33,7 @@ export let tasksDB = [
     projects: [ "New React Page", "Kitchen Renovations" ],
   },
   {
+    id: 5,
     title: "This is a normal priority task 1.",
     date: new Date(2015, 3, 5),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
@@ -36,6 +41,7 @@ export let tasksDB = [
     projects: [ "New React Page", "Kitchen Renovations" ],
   },
   {
+    id: 6,
     title: "This is a completed task 2.",
     date: new Date(2022, 0, 4),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",

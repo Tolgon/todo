@@ -1,9 +1,10 @@
 import { compareAsc, format, isThisWeek, isToday } from "date-fns";
-import { tasksDB } from './fake_db.js';
 import { createTasksDOM, currentFilter } from "./ui.js";
+import { tasksDB } from './fake_db.js';
 
 let tasks = null;
 let tasksFiltered = [];
+
 // Future logic to fetch external data here
 function getTasks() {
   let tasksFetched = tasksDB;
@@ -16,23 +17,27 @@ function filterTasks(filter) {
     tasks = getTasks();
   }
 
-  if(filter === "today") {
-    tasksFiltered = tasks.filter(task => isToday(task.date));
-  } else if(filter === "week") {
-    tasksFiltered = tasks.filter(task => isThisWeek(task.date));
-  } else if(filter === "important") {
-    tasksFiltered = tasks.filter(task => task.priority == "high");
-  } else if(filter === "completed") {
-    tasksFiltered = tasks.filter(task => task.priority == "completed");
-  } else {
-    tasksFiltered = tasks;
+  switch(filter) {
+    case "today":
+      tasksFiltered = tasks.filter(task => isToday(task.date));
+      break;
+    case "week":
+      tasksFiltered = tasks.filter(task => isThisWeek(task.date));
+      break;
+    case "important":
+      tasksFiltered = tasks.filter(task => task.priority == "high");
+      break;
+    case "completed":
+      tasksFiltered = tasks.filter(task => task.priority == "completed");
+      break;
+    default:
+      tasksFiltered = tasks;
   }
 
   tasksFiltered.sort((a, b) => {
     return compareAsc(a.date, b.date); 
   })
 
-  console.log(tasksFiltered);
   return tasksFiltered;
 }
 
@@ -44,7 +49,6 @@ function formatTaskDates(arr) {
   for(let i = 0; i < arr.length; i++) {
     arr[i].date = format(arr[i].date, 'dd-MM-yyyy');
   }
-
   return arr;
 }
 

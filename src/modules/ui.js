@@ -85,7 +85,7 @@ function createTasksDOM(filter) {
   filterTitle.innerHTML = filter;
   taskContainer.innerHTML = "";
 
-  let tasks = filterTasks(filter);
+  tasks = filterTasks(filter);
   // tasks = formatTaskDates(tasks);
 
   for(let i = 0; i < tasks.length; i++) {
