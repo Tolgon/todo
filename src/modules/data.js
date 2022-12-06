@@ -13,9 +13,7 @@ function getTasks() {
 }
 
 function filterTasks(filter) {
-  if(!tasks) {
-    tasks = getTasks();
-  }
+  tasks = getTasks();
 
   switch(filter) {
     case "today":
@@ -26,9 +24,6 @@ function filterTasks(filter) {
       break;
     case "important":
       tasksFiltered = tasks.filter(task => task.priority == "high");
-      break;
-    case "completed":
-      tasksFiltered = tasks.filter(task => task.priority == "completed");
       break;
     default:
       tasksFiltered = tasks;
@@ -49,21 +44,35 @@ function formatTaskDates(arr) {
   return dateArray;
 }
 
+function findTaskDBIndex(index) {
+  const id = tasksFiltered[index].id;
+  index = tasksDB.findIndex(task => task.id === id);
+  
+  return index;
+}
+
 function completeTaskToggle(index) {
-  if(tasksFiltered[index].priority === "completed") {
-    tasksFiltered[index].priority = "normal";
+  index = findTaskDBIndex(index);
+
+  if(tasksDB[index].completed === true) {
+    tasksDB[index].completed = false;
   } else {
-    tasksFiltered[index].priority = "completed";
+    tasksDB[index].completed = true;
   }
   createTasksDOM(currentFilter);
 }
 
-function deleteTask(index) {
-  let id = tasksFiltered[index].id;
-  tasks = tasks.filter((task) => {
-    return task.id !== id;
-  })
+function createTask(task) {
+  tasksDB.push(task);  
+
   createTasksDOM(currentFilter);
 }
 
-export { filterTasks, formatTaskDates, completeTaskToggle, deleteTask }
+function deleteTask(index) {
+  index = findTaskDBIndex(index);
+  tasksDB.splice(index, 1);
+
+  createTasksDOM(currentFilter);
+}
+
+export { filterTasks, formatTaskDates, completeTaskToggle, createTask, deleteTask }

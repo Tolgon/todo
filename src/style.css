@@ -190,8 +190,13 @@ main {
   margin: 0 auto;
 }
 
+.no-tasks {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
 .task {
-  background-color: var(--crust);
+  background: var(--crust);
 
   cursor: pointer;
 
@@ -204,6 +209,34 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.task-snippet-left {
+  display: flex;
+  gap: 10px;
+}
+
+.task-snippet-left button {
+  background: none;
+  color: var(--text);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.priority-medium button {
+  color: var(--mantle);
+  background-color: var(--yellow);
+}
+
+.priority-high button {
+  color: var(--mantle);
+  background-color: var(--red);
+}
+
+.completed button {
+  color: var(--mantle);
+  background-color: var(--green);
 }
 
 .task-title {
@@ -238,16 +271,18 @@ main {
 
 .task-details {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 10px;
+  margin: 10px 0;
+}
 
-  margin-top: 10px;
+.task-details .full-width-grid {
+  grid-column: 1 / -1;
 }
 
 .task-bubble {
   background-color: var(--mantle);
   border-radius: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
   padding: 15px;
 }
 
@@ -260,59 +295,30 @@ main {
 }
 
 .task-bubble-text {
+  font-size: 0.95rem;
   margin: 0;
   padding: 0;
+}
+
+.priority-high .task-bubble {
+  background-color: var(--red);
+  color: var(--crust);
+}
+
+.priority-medium .task-bubble {
+  background-color: var(--yellow);
+  color: var(--crust);
+}
+
+.completed .task-bubble {
+  background-color: var(--green);
+  color: var(--crust);
 }
 
 .date {
   font-size: 0.8rem;
   font-weight: 700;
   margin-right: 5px;
-}
-
-.priority-medium {
-  color: var(--mantle);
-  background-color: var(--yellow);
-}
-
-.priority-medium .task-bubble {
-  color: var(--mantle);
-  background-color: #ffeec8;
-}
-
-.priority-medium svg:hover {
-  color: var(--yellow);
-  background-color: var(--mantle);
-}
-
-.priority-high {
-  color: var(--mantle);
-  background-color: var(--red);
-}
-
-.priority-high .task-bubble {
-  color: var(--mantle);
-  background-color: #ffa4bd;
-}
-
-.priority-high svg:hover {
-  color: var(--red);
-  background-color: var(--mantle);
-}
-
-.completed {
-  color: var(--mantle);
-  background-color: var(--green);
-}
-
-.completed .task-bubble {
-  color: var(--mantle);
-  background-color: #a8eea2;
-}
-
-.completed svg:hover {
-  color: var(--green);
-  background-color: var(--mantle);
 }
 
 .hide {

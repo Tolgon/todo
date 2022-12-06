@@ -7,6 +7,7 @@ export let tasksDB = [
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "normal",
     projects: [ "New React Page", "Kitchen Renovations" ],
+    completed: false
   },
   {
     id: 2,
@@ -15,6 +16,7 @@ export let tasksDB = [
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "high",
     projects: [ "New React Page", "Kitchen Renovations" ],
+    completed: false
   },
   {
     id: 3,
@@ -23,14 +25,16 @@ export let tasksDB = [
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "medium",
     projects: [ "New React Page", "Kitchen Renovations" ],
+    completed: false
   },
   {
     id: 4,
     title: "This is a completed task 1.",
     date: new Date(2022, 11, 3),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-    priority: "completed",
+    priority: "normal",
     projects: [ "New React Page", "Kitchen Renovations" ],
+    completed: true
   },
   {
     id: 5,
@@ -39,13 +43,15 @@ export let tasksDB = [
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "normal",
     projects: [ "New React Page", "Kitchen Renovations" ],
+    completed: false
   },
   {
     id: 6,
     title: "This is a completed task 2.",
     date: new Date(2022, 0, 4),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-    priority: "completed",
+    priority: "normal",
     projects: [ "New React Page", "Kitchen Renovations" ],
+    completed: true
   },
 ];

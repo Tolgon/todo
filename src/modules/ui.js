@@ -9,7 +9,6 @@ let currentFilter = null;
 function initiateButtons() {
   const navButtons = document.querySelectorAll(".nav-button");
   const taskView = document.querySelectorAll(".task");
-  const taskDetailedView = document.querySelectorAll(".task-details");
   const deleteButtons = document.querySelectorAll(".fa-delete");
   const completeButtons = document.querySelectorAll(".fa-complete");
 
@@ -24,7 +23,8 @@ function initiateButtons() {
 
   taskView.forEach(task => {
     task.addEventListener("click", (e) => {
-      let index = e.target.closest("article").dataset.index;
+      // let index = e.target.closest("article").dataset.index;
+      let index = e.target.closest("article");
       toggleTaskDetails(index);
     })
   })
@@ -55,15 +55,19 @@ function initiateButtons() {
     }
   }
 
-  function removeTaskView(index) {
-    console.log(index);
-  }
-
   function toggleTaskDetails(index) {
-    if(taskDetailedView[index].classList.contains("hide")) {
-      taskDetailedView[index].classList.remove("hide");
+    let taskDetailClassList = index.querySelector(".task-details").classList;
+    let expandButtonClassList = index.querySelector(".fa-expand").classList;
+    let collapseButtonClassList = index.querySelector(".fa-collapse").classList;
+
+    if(taskDetailClassList.contains("hide")) {
+      taskDetailClassList.remove("hide");
+      expandButtonClassList.add("hide");
+      collapseButtonClassList.remove("hide");
     } else {
-      taskDetailedView[index].classList.add("hide");
+      taskDetailClassList.add("hide");
+      expandButtonClassList.remove("hide");
+      collapseButtonClassList.add("hide");
     }
   }
 
@@ -77,38 +81,55 @@ function initiateButtons() {
   }
 }
 
-let tasks = [];
-
 function createTasksDOM(filter) {
   const taskContainer = document.getElementById("task-container");
+  const taskCompletedContainer = document.getElementById("task-completed-container");
   const filterTitle = document.getElementById("filter-title");
 
   if(!filter) filter = "all";
   filterTitle.innerHTML = filter;
   taskContainer.innerHTML = "";
+  taskCompletedContainer.innerHTML = "";
 
-  tasks = filterTasks(filter);
+  let tasks = filterTasks(filter);
   let dateArray = formatTaskDates(tasks);
+  let incompleteCount = 0;
 
   for(let i = 0; i < tasks.length; i++) {
     const taskArticle = document.createElement("article");
     taskArticle.dataset.index = i;
     taskArticle.classList.add("task");
 
-    if(tasks[i].priority == "high") {
+    let taskStatus = "";
+    if(tasks[i].priority === "normal" && !tasks[i].completed) {
+      taskContainer.appendChild(taskArticle);
+      incompleteCount++;
+    } else if(tasks[i].priority === "high" && !tasks[i].completed) {
+      taskStatus = "priority-high";
       taskArticle.classList.add("priority-high");
-    } else if(tasks[i].priority == "medium") {
+      taskContainer.appendChild(taskArticle);
+      incompleteCount++;
+    } else if(tasks[i].priority === "medium" && !tasks[i].completed) {
+      taskStatus = "priority-medium";
       taskArticle.classList.add("priority-medium");
-    } else if(tasks[i].priority == "completed") {
+      taskContainer.appendChild(taskArticle);
+      incompleteCount++;
+    } else if(tasks[i].completed === true) {
+      taskStatus = "completed";
       taskArticle.classList.add("completed");
+      taskCompletedContainer.appendChild(taskArticle);
     }
 
-    taskContainer.appendChild(taskArticle);
+
     taskArticle.innerHTML = `
 <div class="task-snippet">
+<div class="task-snippet-left ${taskStatus}">
+<button class="fa-expand"><i class="fa-solid fa-chevron-down"></i></button>
+<button class="fa-collapse hide"><i class="fa-solid fa-chevron-up"></i></button>
 <p class="task-title">
 ${tasks[i].title}
 </p>
+</div>
 <div class="task-controls">
 <span class="date">${dateArray[i]}</span>
 <button class="fa-edit"><i class="fa-solid fa-pen"></i></button>
@@ -118,7 +139,7 @@ ${tasks[i].title}
 </div>
 </div>
 <div class="task-details hide">
-<div class="task-bubble">
+<div class="task-bubble full-width-grid">
 <h4 class="task-bubble-header">Description:</h4>
 <p class="task-bubble-text">
 ${tasks[i].description}
@@ -139,6 +160,8 @@ ${tasks[i].projects}
 </div>
 `
   }
+
+  if(incompleteCount === 0) taskContainer.innerHTML = `<p class="no-tasks">No active tasks...</p>`;
 
   initiateButtons();
 };
