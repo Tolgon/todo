@@ -37,7 +37,7 @@ function filterTasks(filter) {
 }
 
 function formatTaskDates(arr) {
-  let dateArray = [];
+  const dateArray = [];
   for(let i = 0; i < arr.length; i++) {
     dateArray.push(format(arr[i].date, 'dd-MM-yyyy'));
   }

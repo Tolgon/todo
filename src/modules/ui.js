@@ -23,7 +23,6 @@ function initiateButtons() {
 
   taskView.forEach(task => {
     task.addEventListener("click", (e) => {
-      // let index = e.target.closest("article").dataset.index;
       let index = e.target.closest("article");
       toggleTaskDetails(index);
     })
