@@ -156,14 +156,18 @@ main {
   justify-content: space-between;
   align-items: center;
   
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-#task-header h2 {
+main h2 {
   vertical-align: center;
   text-decoration: underline;
   text-transform: capitalize;
   margin: 0;
+}
+
+#completed-title {
+  margin: 60px 0 20px 0;
 }
 
 #task-add {
@@ -332,6 +336,138 @@ footer {
   background-color: var(--mantle);
 }
 
+/* Task Modal */
+.modal-wrapper {
+  background-color: rgba(0, 0, 0, 0.5);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+
+  display: none;
+  justify-content: center;
+  align-items: start;
+
+  padding-top: 20vh;
+}
+
+#task-modal {
+  background-color: var(--mantle);
+  min-width: 400px;
+  
+  border: 1px solid var(--lavender);
+  border-radius: 10px;
+
+  overflow: auto;
+}
+
+.modal-header {
+  background-color: var(--crust);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px;
+}
+
+.modal-header h4 {
+  margin: 0;
+}
+
+.modal-header button {
+  font-size: 1rem;
+  color: var(--text);
+
+  background: none;
+  border: none;
+
+  cursor: pointer;
+
+  margin: 0;
+  padding: 0;
+}
+
+.modal-header svg {
+  padding: 5px 7px;
+}
+
+.modal-header svg:hover {
+  color: var(--crust);
+  background-color: var(--text);
+  border-radius: 15px;
+}
+
+/* Modal form  */
+.modal-form {
+  padding: 20px;
+  
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.input {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.input label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0;
+}
+
+.input > input, .input > textarea, .input > select {
+  /* background-color: var(--mantle); */
+  background: none;
+
+  padding: 5px 0 5px 0;
+
+  border: 2px solid var(--lavender);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+
+  color: var(--subtext);
+}
+
+.input > input:focus, .input > textarea:focus, .input > select:focus {
+  border-bottom: 2px solid var(--mauve);
+  outline: none;
+}
+
+.form-bottom {
+  margin-top: 20px;
+}
+
+#submit {
+  background: none;
+  color: var(--lavender);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid var(--lavender);
+  border-radius: 10px;
+  cursor: pointer;
+
+  padding: 10px 10px;
+}
+
+#submit:hover {
+  color: var(--mauve);
+  border: 2px solid var(--mauve);
+}
+
+/* Grid setup */
 .wrapper {
   display: grid;
   grid-template-columns: 300px 3fr;
@@ -341,7 +477,6 @@ footer {
     "sidebar main"
     "footer footer";
   height: 100vh;
-
 }
 
 @media (max-width: 500px) {

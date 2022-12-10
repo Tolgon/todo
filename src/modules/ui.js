@@ -1,4 +1,4 @@
-import { completeTaskToggle, deleteTask, filterTasks, formatTaskDates } from './data.js';
+import { completeTaskToggle, deleteTask, formatTasks, filterTasks } from './data.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -6,8 +6,20 @@ import '@fortawesome/fontawesome-free/js/solid'
 
 let currentFilter = null;
 
+function toggleModal(toggle) {
+  const modalWrapper = document.getElementsByClassName("modal-wrapper");
+
+  if(toggle) {
+    modalWrapper[0].style.display = "flex";
+  } else {
+    modalWrapper[0].style.display = "none";
+  }
+}
+
 function initiateButtons() {
   const navButtons = document.querySelectorAll(".nav-button");
+  const taskAddButton = document.getElementById("task-add");
+  const modalCloseButton = document.getElementById("modal-close");
   const taskView = document.querySelectorAll(".task");
   const deleteButtons = document.querySelectorAll(".fa-delete");
   const completeButtons = document.querySelectorAll(".fa-complete");
@@ -19,6 +31,14 @@ function initiateButtons() {
       currentFilter = button.dataset.filter;
       createTasksDOM(currentFilter);
     })
+  })
+
+  taskAddButton.addEventListener("click", () => {
+    toggleModal(true);
+  })
+
+  modalCloseButton.addEventListener("click", () => {
+    toggleModal(false);
   })
 
   taskView.forEach(task => {
@@ -91,7 +111,7 @@ function createTasksDOM(filter) {
   taskCompletedContainer.innerHTML = "";
 
   let tasks = filterTasks(filter);
-  let dateArray = formatTaskDates(tasks);
+  tasks = formatTasks(tasks);
   let incompleteCount = 0;
 
   for(let i = 0; i < tasks.length; i++) {
@@ -130,7 +150,7 @@ ${tasks[i].title}
 </p>
 </div>
 <div class="task-controls">
-<span class="date">${dateArray[i]}</span>
+<span class="date">${tasks[i].date}</span>
 <button class="fa-edit"><i class="fa-solid fa-pen"></i></button>
 <button class="fa-delete"><i class="fa-solid fa-trash"></i></button>
 <button class="fa-complete"><i class="fa-solid fa-check"></i></button>
@@ -147,13 +167,13 @@ ${tasks[i].description}
 <div class="task-bubble">
 <h4 class="task-bubble-header">Due Date:</h4>
 <p class="task-bubble-text">
-${dateArray[i]}
+${tasks[i].date}
 </p>
 </div>
 <div class="task-bubble">
-<h4 class="task-bubble-header">Projects:</h4>
+<h4 class="task-bubble-header">Project:</h4>
 <p class="task-bubble-text">
-${tasks[i].projects}
+${tasks[i].project}
 </p>
 </div>
 </div>

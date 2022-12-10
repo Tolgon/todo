@@ -8,7 +8,7 @@ export let tasksDB = [
     date: new Date(2022, 11, 3),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "normal",
-    projects: [ "New React Page", "Kitchen Renovations" ],
+    project: 2,
     completed: false
   },
   {
@@ -17,7 +17,7 @@ export let tasksDB = [
     date: new Date(2022, 10, 30),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "high",
-    projects: [ "New React Page", "Kitchen Renovations" ],
+    project: 1,
     completed: false
   },
   {
@@ -26,7 +26,7 @@ export let tasksDB = [
     date: new Date(2022, 11, 4),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "medium",
-    projects: [ "New React Page", "Kitchen Renovations" ],
+    project: 2,
     completed: false
   },
   {
@@ -35,7 +35,7 @@ export let tasksDB = [
     date: new Date(2022, 11, 3),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "normal",
-    projects: [ "New React Page", "Kitchen Renovations" ],
+    project: 1,
     completed: true
   },
   {
@@ -44,7 +44,7 @@ export let tasksDB = [
     date: new Date(2015, 3, 5),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "normal",
-    projects: [ "New React Page", "Kitchen Renovations" ],
+    project: 1,
     completed: false
   },
   {
@@ -53,7 +53,18 @@ export let tasksDB = [
     date: new Date(2022, 0, 4),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "normal",
-    projects: [ "New React Page", "Kitchen Renovations" ],
+    project: 1,
     completed: true
+  },
+];
+
+export let projectsDB = [
+  {
+    id: 1,
+    title: "New React Project",
+  },
+  {
+    id: 2,
+    title: "Kitchen Renovations",
   },
 ];

@@ -50,6 +50,42 @@
       </main>
       <footer>footer</footer>
     </div>
+    <section class="modal-wrapper hide">
+      <div id="task-modal">
+        <div class="modal-header">
+          <h4 id="modal-title">Add Task</h4> <button id="modal-close"><i class="fa-solid fa-xmark"></button></i>
+        </div>
+
+        <div class="modal-form">
+          <form id="form">
+            <div class="input">
+              <label for="task-title">Title</label>
+              <input class="task-title" type="text" name="title" value="" required>
+            </div>
+            <div class="input">
+              <label for="task-description">Description</label>
+              <textarea class="task-description" rows="2" cols="36" name="description" value=""></textarea>
+            </div>
+            <div class="input">
+              <label for="task-due-date">Due Date</label>
+              <input class="task-due-date" type="date" name="due-date" value="" required>
+            </div>
+            <div class="input">
+              <label for="task-priority">Task priority</label>
+              <select class="task-priority" name="priority">
+                <option value="" disabled selected>Select task priority.</option>
+                <option value="normal">Normal priority</option>
+                <option value="medium">Medium priority</option>
+                <option value="high">High priority</option>
+              </select>
+            </div>
+            <div class="form-bottom">
+              <button type="submit" id="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
   </body>
   <script src="bundle.js"></script>
 </html>

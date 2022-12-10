@@ -1,15 +1,23 @@
-import { compareAsc, format, isThisWeek, isToday, parseISO } from "date-fns";
+import { compareAsc, format, isThisWeek, isToday } from "date-fns";
 import { createTasksDOM, currentFilter } from "./ui.js";
-import { tasksDB } from './fake_db.js';
+import { projectsDB, tasksDB } from './fake_db.js';
 
 let tasks = null;
 let tasksFiltered = [];
+
+let projects = [];
 
 // Future logic to fetch external data here
 function getTasks() {
   let tasksFetched = tasksDB;
 
   return tasksFetched;
+}
+
+function getProjects() {
+  let projectsFetched = projectsDB;
+
+  return projectsFetched;
 }
 
 function filterTasks(filter) {
@@ -36,12 +44,14 @@ function filterTasks(filter) {
   return tasksFiltered;
 }
 
-function formatTaskDates(arr) {
-  const dateArray = [];
-  for(let i = 0; i < arr.length; i++) {
-    dateArray.push(format(arr[i].date, 'dd-MM-yyyy'));
-  }
-  return dateArray;
+function formatTasks(arr) {
+  projects = getProjects();
+
+  return arr.map((task) => {
+    task.date = format(task.date, 'dd-MM-yyyy');
+    const newObj = projectsDB.find(o => o.id === task.project);
+    return {...task, project: newObj.title }; 
+  })
 }
 
 function findTaskDBIndex(index) {
@@ -75,4 +85,4 @@ function deleteTask(index) {
   createTasksDOM(currentFilter);
 }
 
-export { filterTasks, formatTaskDates, completeTaskToggle, createTask, deleteTask }
+export { filterTasks, formatTasks, completeTaskToggle, createTask, deleteTask }
