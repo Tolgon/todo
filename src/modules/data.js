@@ -5,8 +5,6 @@ import { projectsDB, tasksDB } from './fake_db.js';
 let tasks = null;
 let tasksFiltered = [];
 
-let projects = [];
-
 // Future logic to fetch external data here
 function getTasks() {
   let tasksFetched = tasksDB;
@@ -44,13 +42,15 @@ function filterTasks(filter) {
   return tasksFiltered;
 }
 
-function formatTasks(arr) {
-  projects = getProjects();
+function formatTasksUI(arr) {
+  const projects = getProjects();
 
-  return arr.map((task) => {
-    task.date = format(task.date, 'dd-MM-yyyy');
-    const newObj = projectsDB.find(o => o.id === task.project);
-    return {...task, project: newObj.title }; 
+  return arr.map(task => {
+    return {
+      ...task,
+      date: format(task.date, 'dd-MM-yyyy'),
+      project: projects.find(o => o.id === task.project).title
+    }
   })
 }
 
@@ -85,4 +85,4 @@ function deleteTask(index) {
   createTasksDOM(currentFilter);
 }
 
-export { filterTasks, formatTasks, completeTaskToggle, createTask, deleteTask }
+export { getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask }

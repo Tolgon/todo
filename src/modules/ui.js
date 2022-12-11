@@ -1,4 +1,4 @@
-import { completeTaskToggle, deleteTask, formatTasks, filterTasks } from './data.js';
+import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI } from './data.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -100,6 +100,20 @@ function initiateButtons() {
   }
 }
 
+function createProjectsDOM() {
+  let projects = getProjects();
+
+  const projectNav = document.getElementById("projects-nav");
+  const projectCount = document.getElementById("projects-count");
+
+  projectCount.textContent = `(${projects.length})`
+  for(let i = 0; i < projects.length; i++) {
+    const navItem = document.createElement("a");
+    navItem.innerHTML = `<li class="nav-button">${projects[i].title}</li>`;
+    projectNav.appendChild(navItem);
+  }
+}
+
 function createTasksDOM(filter) {
   const taskContainer = document.getElementById("task-container");
   const taskCompletedContainer = document.getElementById("task-completed-container");
@@ -111,7 +125,7 @@ function createTasksDOM(filter) {
   taskCompletedContainer.innerHTML = "";
 
   let tasks = filterTasks(filter);
-  tasks = formatTasks(tasks);
+  tasks = formatTasksUI(tasks);
   let incompleteCount = 0;
 
   for(let i = 0; i < tasks.length; i++) {
@@ -138,7 +152,6 @@ function createTasksDOM(filter) {
       taskArticle.classList.add("completed");
       taskCompletedContainer.appendChild(taskArticle);
     }
-
 
     taskArticle.innerHTML = `
 <div class="task-snippet">
@@ -185,4 +198,4 @@ ${tasks[i].project}
   initiateButtons();
 };
 
-export { currentFilter, createTasksDOM }
+export { currentFilter, createProjectsDOM, createTasksDOM }
