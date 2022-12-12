@@ -5,7 +5,7 @@ export const tasksDB = [
   {
     id: uuidv4(),
     title: "This is a task.",
-    date: new Date(2022, 11, 14),
+    date: new Date(),
     description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     priority: "normal",
     project: 2,

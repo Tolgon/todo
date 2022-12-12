@@ -402,12 +402,12 @@ footer {
 }
 
 /* Modal form  */
-.modal-form {
+#modal-form-container {
   padding: 20px;
   
 }
 
-#form {
+#add-task-form, #edit-task-form {
   display: flex;
   flex-direction: column;
   gap: 25px;

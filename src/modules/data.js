@@ -5,13 +5,14 @@ import { projectsDB, tasksDB } from './fake_db.js';
 let tasks = null;
 let tasksFiltered = [];
 
-// Future logic to fetch external data here
+// Future logic to fetch tasks table
 function getTasks() {
   let tasksFetched = tasksDB;
 
   return tasksFetched;
 }
 
+// Future logic to fetch projects table
 function getProjects() {
   let projectsFetched = projectsDB;
 

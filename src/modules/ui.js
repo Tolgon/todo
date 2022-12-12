@@ -1,19 +1,44 @@
 import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI } from './data.js';
+import { taskTemplate } from '../templates/task-template.js';
+import { addTaskTemplate } from '../templates/add-task-template.js';
+import { editTaskTemplate } from '../templates/edit-task-template.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
-import { taskTemplate } from '../templates/task-template.js';
 // import '@fortawesome/fontawesome-free/js/regular'
 
 let currentFilter = null;
 
-function toggleModal(toggle) {
+function toggleModal(toggle, view) {
   const modalWrapper = document.getElementsByClassName("modal-wrapper");
+  const formContainer = document.getElementById("modal-form-container");
+  const projects = getProjects();
+
+  switch(view) {
+    case "add":
+      formContainer.innerHTML = addTaskTemplate();
+      break;
+    case "edit":
+      formContainer.innerHTML = editTaskTemplate();
+      break;
+  }
 
   if(toggle) {
     modalWrapper[0].style.display = "flex";
+    formListProjects(projects);
   } else {
     modalWrapper[0].style.display = "none";
+    formContainer.innerHTML = "";
+  }
+}
+
+function formListProjects(projects) {
+  const select = document.querySelector(".task-project");
+  for(let i = 0; i < projects.length; i++) {
+    const option = document.createElement("option");
+    select.appendChild(option);
+    option.textContent = projects[i].title;
+    option.value = projects[i].id;
   }
 }
 
@@ -22,6 +47,7 @@ function initiateButtons() {
   const taskAddButton = document.getElementById("task-add");
   const modalCloseButton = document.getElementById("modal-close");
   const taskView = document.querySelectorAll(".task");
+  const editButtons = document.querySelectorAll(".fa-edit");
   const deleteButtons = document.querySelectorAll(".fa-delete");
   const completeButtons = document.querySelectorAll(".fa-complete");
 
@@ -35,7 +61,7 @@ function initiateButtons() {
   })
 
   taskAddButton.addEventListener("click", () => {
-    toggleModal(true);
+    toggleModal(true, "add");
   })
 
   modalCloseButton.addEventListener("click", () => {
@@ -46,6 +72,15 @@ function initiateButtons() {
     task.addEventListener("click", (e) => {
       let index = e.target.closest("article");
       toggleTaskDetails(index);
+    })
+  })
+
+  editButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+      e.stopPropagation();
+      let index = e.target.closest("article").dataset.index;
+      console.log(index);
+      toggleModal(true, "edit");
     })
   })
 
@@ -128,6 +163,7 @@ function createTasksDOM(filter) {
   let tasks = filterTasks(filter);
   tasks = formatTasksUI(tasks);
   let incompleteCount = 0;
+  let completeCount = 0;
 
   for(let i = 0; i < tasks.length; i++) {
     const taskArticle = document.createElement("article");
@@ -152,12 +188,14 @@ function createTasksDOM(filter) {
       taskStatus = "completed";
       taskArticle.classList.add("completed");
       taskCompletedContainer.appendChild(taskArticle);
+      completeCount++;
     }
 
     taskArticle.innerHTML = taskTemplate(tasks, taskStatus, i);
   }
 
-  if(incompleteCount === 0) taskContainer.innerHTML = `<p class="no-tasks">No active tasks...</p>`;
+  if(incompleteCount === 0) taskContainer.innerHTML = `<p class="no-tasks">No active tasks found.</p>`;
+  if(completeCount === 0) taskCompletedContainer.innerHTML = `<p class="no-tasks">No completed tasks found.</p>`;
 
   initiateButtons();
 };
