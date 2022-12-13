@@ -8,9 +8,7 @@ let tasksFiltered = [];
 
 // Future logic to fetch tasks table
 function getTasks() {
-  let tasksFetched = tasksDB;
-
-  return tasksFetched;
+  return tasksDB;
 }
 
 function getTask(index) {
@@ -20,15 +18,16 @@ function getTask(index) {
 
 // Future logic to fetch projects table
 function getProjects() {
-  let projectsFetched = projectsDB;
-
-  return projectsFetched;
+  return projectsDB;
 }
 
 function filterTasks(filter) {
   tasks = getTasks();
 
   switch(filter) {
+    case "all":
+      tasksFiltered = tasks;
+      break;
     case "today":
       tasksFiltered = tasks.filter(task => isToday(task.date));
       break;
@@ -39,7 +38,7 @@ function filterTasks(filter) {
       tasksFiltered = tasks.filter(task => task.priority == "high");
       break;
     default:
-      tasksFiltered = tasks;
+      tasksFiltered = tasks.filter(task => task.project == findProjectDBIndex(filter));
   }
 
   tasksFiltered.sort((a, b) => {
@@ -59,6 +58,13 @@ function formatTasksUI(arr) {
       project: projects.find(o => o.id === task.project).title
     }
   })
+}
+
+function findProjectDBIndex(index) {
+  const projects = getProjects();
+  const id = projects[index].id;
+
+  return id;
 }
 
 function findTaskDBIndex(index) {
@@ -125,4 +131,9 @@ function formatDateToString(date) {
   return format(date, "yyyy-MM-dd");
 }
 
-export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit, formatDateToString };
+function getProjectTitle(index) {
+  const projects = getProjects();
+  return projects[index].title;
+}
+
+export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit, formatDateToString, getProjectTitle };

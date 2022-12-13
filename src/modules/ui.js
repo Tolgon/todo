@@ -1,4 +1,4 @@
-import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, taskFormSubmit, getTask, formatDateToString } from './data.js';
+import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, taskFormSubmit, getTask, formatDateToString, getProjectTitle } from './data.js';
 import { taskTemplate } from '../templates/task-template.js';
 import { taskFormTemplate } from '../templates/task-form-template.js';
 
@@ -70,7 +70,11 @@ function initiateEvents() {
     button.addEventListener("click", (e) => {
       if(e.target.classList.contains("active")) return;
       setActiveNavButton(button);
-      currentFilter = button.dataset.filter;
+      if(button.dataset.filter) {
+        currentFilter = button.dataset.filter;
+      } else {
+        currentFilter = button.dataset.project;
+      }
       createTasksDOM(currentFilter);
     })
   })
@@ -162,7 +166,7 @@ function createProjectsDOM() {
   projectCount.textContent = `(${projects.length})`
   for(let i = 0; i < projects.length; i++) {
     const navItem = document.createElement("a");
-    navItem.innerHTML = `<li class="nav-button">${projects[i].title}</li>`;
+    navItem.innerHTML = `<li class="nav-button nav-project" data-project="${i}">${projects[i].title}</li>`;
     projectNav.appendChild(navItem);
   }
 }
@@ -173,7 +177,11 @@ function createTasksDOM(filter) {
   const filterTitle = document.getElementById("filter-title");
 
   if(!filter) filter = "all";
-  filterTitle.innerHTML = filter;
+  if(!isNaN(filter)) {
+    filterTitle.innerHTML = getProjectTitle(filter);
+  } else {
+    filterTitle.innerHTML = filter;
+  }
   taskContainer.innerHTML = "";
   taskCompletedContainer.innerHTML = "";
 
