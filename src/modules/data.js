@@ -1,6 +1,7 @@
-import { compareAsc, format, isThisWeek, isToday } from "date-fns";
+import { compareAsc, format, isThisWeek, isToday, parseISO } from "date-fns";
 import { createTasksDOM, currentFilter } from "./ui.js";
 import { projectsDB, tasksDB } from './fake_db.js';
+import { addTask } from "./task.js";
 
 let tasks = null;
 let tasksFiltered = [];
@@ -79,6 +80,11 @@ function createTask(task) {
   createTasksDOM(currentFilter);
 }
 
+function editTask(index) {
+  index = findTaskDBIndex(index);
+  console.log(tasksDB[index]);
+}
+
 function deleteTask(index) {
   index = findTaskDBIndex(index);
   tasksDB.splice(index, 1);
@@ -86,4 +92,17 @@ function deleteTask(index) {
   createTasksDOM(currentFilter);
 }
 
-export { getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask }
+function taskFormSubmit(action, formData) {
+  const task = {};
+  formData.forEach((value, key) => (task[key] = value));
+  task.date = parseISO(task.date);
+  task.project = parseInt(task.project);
+
+  switch(action) {
+    case "add":
+      addTask(task.title, task.description, task.date, task.priority, task.project);
+      break;
+  }
+}
+
+export { getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, editTask, deleteTask, taskFormSubmit };

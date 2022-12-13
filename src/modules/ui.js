@@ -1,7 +1,6 @@
-import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI } from './data.js';
+import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, editTask, taskFormSubmit } from './data.js';
 import { taskTemplate } from '../templates/task-template.js';
-import { addTaskTemplate } from '../templates/add-task-template.js';
-import { editTaskTemplate } from '../templates/edit-task-template.js';
+import { taskFormTemplate } from '../templates/task-form-template.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
@@ -9,30 +8,45 @@ import '@fortawesome/fontawesome-free/js/solid'
 
 let currentFilter = null;
 
-function toggleModal(toggle, view) {
+function toggleModal(toggle, action) {
   const modalWrapper = document.getElementsByClassName("modal-wrapper");
   const formContainer = document.getElementById("modal-form-container");
-  const projects = getProjects();
 
-  switch(view) {
-    case "add":
-      formContainer.innerHTML = addTaskTemplate();
-      break;
-    case "edit":
-      formContainer.innerHTML = editTaskTemplate();
-      break;
-  }
+  formView(formContainer, action);
+
+  const form = document.getElementById("task-form");
+  console.log(form);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    taskFormSubmit(action, formData);
+    modalWrapper[0].style.display = "none";
+    formContainer.innerHTML = "";
+  })
 
   if(toggle) {
     modalWrapper[0].style.display = "flex";
-    formListProjects(projects);
+    formListProjects();
   } else {
     modalWrapper[0].style.display = "none";
     formContainer.innerHTML = "";
   }
 }
 
-function formListProjects(projects) {
+function formView(container, action) {
+  switch(action) {
+    case "add":
+      container.innerHTML = taskFormTemplate();
+      break;
+    case "edit":
+      container.innerHTML = taskFormTemplate();
+      break;
+  }
+}
+
+function formListProjects() {
+  const projects = getProjects();
   const select = document.querySelector(".task-project");
   for(let i = 0; i < projects.length; i++) {
     const option = document.createElement("option");
@@ -42,7 +56,7 @@ function formListProjects(projects) {
   }
 }
 
-function initiateButtons() {
+function initiateEvents() {
   const navButtons = document.querySelectorAll(".nav-button");
   const taskAddButton = document.getElementById("task-add");
   const modalCloseButton = document.getElementById("modal-close");
@@ -79,7 +93,7 @@ function initiateButtons() {
     button.addEventListener("click", (e) => {
       e.stopPropagation();
       let index = e.target.closest("article").dataset.index;
-      console.log(index);
+      editTask(index);
       toggleModal(true, "edit");
     })
   })
@@ -197,7 +211,7 @@ function createTasksDOM(filter) {
   if(incompleteCount === 0) taskContainer.innerHTML = `<p class="no-tasks">No active tasks found.</p>`;
   if(completeCount === 0) taskCompletedContainer.innerHTML = `<p class="no-tasks">No completed tasks found.</p>`;
 
-  initiateButtons();
+  initiateEvents();
 };
 
 export { currentFilter, createProjectsDOM, createTasksDOM }

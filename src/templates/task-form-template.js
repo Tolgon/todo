@@ -1,6 +1,6 @@
-function editTaskTemplate() {
+function taskFormTemplate() {
   return `
-<form id="edit-task-form">
+<form id="task-form">
   <div class="input">
     <label for="task-title">Title:</label>
     <input class="task-title" type="text" name="title" value="" required>
@@ -11,7 +11,7 @@ function editTaskTemplate() {
   </div>
   <div class="input">
     <label for="task-due-date">Due Date:</label>
-    <input class="task-due-date" type="date" name="due-date" value="" required>
+    <input class="task-due-date" type="date" name="date" value="" required>
   </div>
   <div class="input">
     <label for="task-priority">Priority:</label>
@@ -35,4 +35,4 @@ function editTaskTemplate() {
 `
 }
 
-export { editTaskTemplate };
+export { taskFormTemplate };
