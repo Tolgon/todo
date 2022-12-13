@@ -12,10 +12,9 @@ function toggleModal(toggle, action) {
   const modalWrapper = document.getElementsByClassName("modal-wrapper");
   const formContainer = document.getElementById("modal-form-container");
 
-  formView(formContainer, action);
+  formContainer.innerHTML = taskFormTemplate();
 
   const form = document.getElementById("task-form");
-  console.log(form);
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -31,17 +30,6 @@ function toggleModal(toggle, action) {
   } else {
     modalWrapper[0].style.display = "none";
     formContainer.innerHTML = "";
-  }
-}
-
-function formView(container, action) {
-  switch(action) {
-    case "add":
-      container.innerHTML = taskFormTemplate();
-      break;
-    case "edit":
-      container.innerHTML = taskFormTemplate();
-      break;
   }
 }
 

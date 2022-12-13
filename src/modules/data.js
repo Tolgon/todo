@@ -102,6 +102,9 @@ function taskFormSubmit(action, formData) {
     case "add":
       addTask(task.title, task.description, task.date, task.priority, task.project);
       break;
+    case "edit":
+      console.log("bozo");
+      break;
   }
 }
 
