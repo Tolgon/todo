@@ -1,4 +1,4 @@
-import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, editTask, taskFormSubmit } from './data.js';
+import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, taskFormSubmit, getTask } from './data.js';
 import { taskTemplate } from '../templates/task-template.js';
 import { taskFormTemplate } from '../templates/task-form-template.js';
 
@@ -7,11 +7,14 @@ import '@fortawesome/fontawesome-free/js/solid'
 // import '@fortawesome/fontawesome-free/js/regular'
 
 let currentFilter = null;
+let editIndex = null;
 
 function toggleModal(toggle, action) {
   const modalWrapper = document.getElementsByClassName("modal-wrapper");
+  const modalTitle = document.getElementById("modal-title");
   const formContainer = document.getElementById("modal-form-container");
 
+  modalTitle.textContent = action + " task";
   formContainer.innerHTML = taskFormTemplate();
 
   const form = document.getElementById("task-form");
@@ -19,7 +22,7 @@ function toggleModal(toggle, action) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const formData = new FormData(form);
-    taskFormSubmit(action, formData);
+    taskFormSubmit(action, formData, editIndex);
     modalWrapper[0].style.display = "none";
     formContainer.innerHTML = "";
   })
@@ -30,6 +33,7 @@ function toggleModal(toggle, action) {
   } else {
     modalWrapper[0].style.display = "none";
     formContainer.innerHTML = "";
+    editIndex = null;
   }
 }
 
@@ -42,6 +46,14 @@ function formListProjects() {
     option.textContent = projects[i].title;
     option.value = projects[i].id;
   }
+}
+
+function setFormValues(values) {
+  const form = document.getElementById("task-form");
+  form["title"].value = values.title;
+  form["description"].value = values.description;
+  form["priority"].value = values.priority;
+  form["project"].value = values.project;
 }
 
 function initiateEvents() {
@@ -81,8 +93,10 @@ function initiateEvents() {
     button.addEventListener("click", (e) => {
       e.stopPropagation();
       let index = e.target.closest("article").dataset.index;
-      editTask(index);
+      const formValues = getTask(index);
+      editIndex = index;
       toggleModal(true, "edit");
+      setFormValues(formValues);
     })
   })
 

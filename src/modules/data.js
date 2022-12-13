@@ -13,6 +13,11 @@ function getTasks() {
   return tasksFetched;
 }
 
+function getTask(index) {
+  index = findTaskDBIndex(index);
+  return tasksDB[index];
+}
+
 // Future logic to fetch projects table
 function getProjects() {
   let projectsFetched = projectsDB;
@@ -80,9 +85,16 @@ function createTask(task) {
   createTasksDOM(currentFilter);
 }
 
-function editTask(index) {
-  index = findTaskDBIndex(index);
-  console.log(tasksDB[index]);
+function editTask(task, index) {
+  index = findTaskDBIndex(index)
+  
+  tasksDB[index].title = task.title;
+  tasksDB[index].description = task.description;
+  tasksDB[index].date = task.date;
+  tasksDB[index].priority = task.priority;
+  tasksDB[index].project = task.project;
+
+  createTasksDOM(currentFilter);
 }
 
 function deleteTask(index) {
@@ -92,7 +104,7 @@ function deleteTask(index) {
   createTasksDOM(currentFilter);
 }
 
-function taskFormSubmit(action, formData) {
+function taskFormSubmit(action, formData, index) {
   const task = {};
   formData.forEach((value, key) => (task[key] = value));
   task.date = parseISO(task.date);
@@ -103,9 +115,10 @@ function taskFormSubmit(action, formData) {
       addTask(task.title, task.description, task.date, task.priority, task.project);
       break;
     case "edit":
-      console.log("bozo");
+      if(!index) return;
+      editTask(task, index);
       break;
   }
 }
 
-export { getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, editTask, deleteTask, taskFormSubmit };
+export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit };
