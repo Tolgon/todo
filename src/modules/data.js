@@ -121,4 +121,8 @@ function taskFormSubmit(action, formData, index) {
   }
 }
 
-export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit };
+function formatDateToString(date) {
+  return format(date, "yyyy-MM-dd");
+}
+
+export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit, formatDateToString };

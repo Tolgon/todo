@@ -1,4 +1,4 @@
-import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, taskFormSubmit, getTask } from './data.js';
+import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, taskFormSubmit, getTask, formatDateToString } from './data.js';
 import { taskTemplate } from '../templates/task-template.js';
 import { taskFormTemplate } from '../templates/task-form-template.js';
 
@@ -52,6 +52,7 @@ function setFormValues(values) {
   const form = document.getElementById("task-form");
   form["title"].value = values.title;
   form["description"].value = values.description;
+  form["date"].value = formatDateToString(values.date);
   form["priority"].value = values.priority;
   form["project"].value = values.project;
 }
