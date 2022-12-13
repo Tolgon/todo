@@ -61,10 +61,10 @@ export const tasksDB = [
 export const projectsDB = [
   {
     id: 1,
-    title: "New React Project",
+    title: "Assignment",
   },
   {
     id: 2,
-    title: "Kitchen Renovations",
+    title: "Coding",
   },
 ];

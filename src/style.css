@@ -71,11 +71,11 @@ aside {
 
   background-color: var(--crust);
 
-  padding: 30px 20px;
+  padding: 15px;
 }
 
 #task-filter {
-  margin-bottom: 90px;
+  margin-bottom: 30px;
 }
 
 aside a {

@@ -163,10 +163,11 @@ function createProjectsDOM() {
   const projectNav = document.getElementById("projects-nav");
   const projectCount = document.getElementById("projects-count");
 
+  projectNav.innerHTML = "";
   projectCount.textContent = `(${projects.length})`
   for(let i = 0; i < projects.length; i++) {
     const navItem = document.createElement("a");
-    navItem.innerHTML = `<li class="nav-button nav-project" data-project="${i}">${projects[i].title}</li>`;
+    navItem.innerHTML = `<li class="nav-button nav-project" data-project="${i}"><i class="fa-solid fa-list-check"></i> ${projects[i].title}</li>`;
     projectNav.appendChild(navItem);
   }
 }

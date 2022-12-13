@@ -27,11 +27,22 @@
 
         <section id="nav-projects">
           <div id="projects-header">
-            <p id="projects-title">Projects <span id="projects-count">(2)</span></p>
+            <p id="projects-title">Projects <span id="projects-count"></span></p>
             <p id="projects-add">+</p>
           </div>
           <hr />
           <ul id="projects-nav"></ul>
+          <div class="project-add">
+            <form id="project-add">
+              <div class="project-input">
+                <input type="text" name="title" placeholder="Enter project name..." >
+              </div>
+              <div>
+                <button id="project-add">Add</button>
+                <button id="project-cancel">Cancel</button>
+              </div>
+            </form>
+          </div>
         </section>
       </aside>
       <main>

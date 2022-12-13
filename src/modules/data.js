@@ -1,5 +1,5 @@
 import { compareAsc, format, isThisWeek, isToday, parseISO } from "date-fns";
-import { createTasksDOM, currentFilter } from "./ui.js";
+import { createProjectsDOM, createTasksDOM, currentFilter } from "./ui.js";
 import { projectsDB, tasksDB } from './fake_db.js';
 import { addTask } from "./task.js";
 
@@ -85,6 +85,12 @@ function completeTaskToggle(index) {
   createTasksDOM(currentFilter);
 }
 
+function createProject(project) {
+  projectsDB.push(project);
+
+  createProjectsDOM();
+}
+
 function createTask(task) {
   tasksDB.push(task);  
 
@@ -136,4 +142,4 @@ function getProjectTitle(index) {
   return projects[index].title;
 }
 
-export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit, formatDateToString, getProjectTitle };
+export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit, formatDateToString, getProjectTitle, createProject };
