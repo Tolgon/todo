@@ -382,7 +382,17 @@ main h2 {
 footer {
   grid-area: footer;
 
+  font-size: 0.9rem;
   background-color: var(--crust);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer a {
+  font-style: italic;
+  margin-left: 10px;
 }
 
 /* Task Modal */
