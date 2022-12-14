@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>A simple to do list</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <section class="logo">
+          Todo List
+        </section>
+      </header>
+      <aside>
+        <nav id="task-filter">
+          <ul>
+            <a><li data-filter="all" class="nav-button active"><i class="fa-solid fa-calendar-days"></i> All</li></a>
+            <a><li data-filter="today" class="nav-button"><i class="fa-solid fa-calendar-day"></i> Today</li></a>
+            <a><li data-filter="week" class="nav-button"><i class="fa-solid fa-calendar-week"></i> Week</li></a>
+            <a><li data-filter="important" class="nav-button"><i class="fa-solid fa-circle-exclamation"></i> Important</li></a>
+          </ul>
+        </nav>
+
+        <section id="nav-projects">
+          <div id="projects-header">
+            <p id="projects-title">Projects <span id="projects-count"></span></p>
+            <p id="project-add">+</p>
+          </div>
+          <hr />
+          <div class="project-form-wrapper"></div>
+          <ul id="projects-nav"></ul>
+        </section>
+      </aside>
+      <main>
+        <section class="task-wrapper">
+          <div id="task-header">
+            <h2 id="filter-title">...</h2> <div id="task-add">Add New Task</div>
+          </div>
+          <div id="task-container"></div>
+            <h2 id="completed-title">Completed</h2>
+          <div id="task-completed-container">
+          </div>
+        </section>
+      </main>
+      <footer>
+        <p>Made by Tolga. <a href="https://github.com/Tolgon/todo" target="_blank"><i class="fa-brands fa-github"></i> Github Repo</a>.</p>
+      </footer>
+    </div>
+    <section class="modal-wrapper hide">
+      <div id="task-modal">
+        <div class="modal-header">
+          <h4 id="modal-title">Task</h4> <button id="modal-close"><i class="fa-solid fa-xmark"></button></i>
+        </div>
+        <div id="modal-form-container">
+        </div>
+      </div>
+    </section>
+  </body>
+  <script src="bundle.js"></script>
+</html>
