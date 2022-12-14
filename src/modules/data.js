@@ -88,7 +88,6 @@ function completeTaskToggle(index) {
 
 function createProject(project) {
   projectsDB.push(project);
-  console.log(projectsDB);
 
   createProjectsDOM();
   createTasksDOM();

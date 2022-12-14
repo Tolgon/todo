@@ -102,7 +102,6 @@ function initiateEvents() {
   navButtons.forEach(button => {
     button.addEventListener("click", (e) => {
       if(e.target.classList.contains("active")) return;
-      console.log(button);
       setActiveNavButton(button);
       if(button.dataset.filter) {
         currentFilter = button.dataset.filter;
