@@ -41,7 +41,7 @@ body {
   font-size: 18px;
   color: var(--text);
 
-  background-color: var(--base);
+  background-color: var(--mantle);
 
   margin: 0;
 }
@@ -125,7 +125,7 @@ aside svg {
   margin-bottom: 0;
 }
 
-#projects-add {
+#project-add {
   color: var(--lavender);
   font-weight: 700;
   text-align: center;
@@ -134,20 +134,68 @@ aside svg {
   cursor: pointer;
 }
 
-#projects-add:hover {
+#project-add:hover {
   color: var(--mauve);
   border: 2px solid var(--mauve);
 }
 
-#projects-add span {
+#project-add span {
   font-size: 0.7rem;
   font-weight: 400;
   vertical-align: center;
 }
 
+.project-form-wrapper {
+  display: none;
+  background-color: var(--mantle);
+  border-radius: 20px;
+  padding: 25px;
+  margin-top: 25px;
+}
+
+.project-input input {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.project-buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.project-button {
+  background: none;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 3px 10px;
+}
+
+#project-add-button {
+  color: var(--green);
+  border: 2px solid var(--green);
+}
+
+#project-cancel-button {
+  color: var(--red);
+  border: 2px solid var(--red);
+}
+
+#project-add-button:hover,
+#project-cancel-button:hover {
+  color: var(--mauve);
+  border: 2px solid var(--mauve);
+}
+
 /* Main */
 main {
   grid-area: main;
+  background-color: var(--base);
   padding: 30px 50px;
 }
 
@@ -171,6 +219,7 @@ main h2 {
 }
 
 #task-add {
+  background: none;
   color: var(--lavender);
   font-size: 1rem;
   font-weight: 700;
@@ -333,7 +382,7 @@ main h2 {
 footer {
   grid-area: footer;
 
-  background-color: var(--mantle);
+  background-color: var(--crust);
 }
 
 /* Task Modal */
@@ -433,6 +482,8 @@ footer {
 .input > input, .input > textarea, .input > select {
   /* background-color: var(--mantle); */
   background: none;
+  box-sizing: border-box;
+  width: 100%;
 
   padding: 5px 0 5px 0;
 
@@ -482,6 +533,9 @@ footer {
     "sidebar main"
     "footer footer";
   height: 100vh;
+  max-width: 1350px;
+  margin: 0 auto;
+  box-shadow: 0 0 15px 15px var(--crust);
 }
 
 @media (max-width: 500px) {

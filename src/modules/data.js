@@ -2,6 +2,7 @@ import { compareAsc, format, isThisWeek, isToday, parseISO } from "date-fns";
 import { createProjectsDOM, createTasksDOM, currentFilter } from "./ui.js";
 import { projectsDB, tasksDB } from './fake_db.js';
 import { addTask } from "./task.js";
+import { addProject } from "./project.js";
 
 let tasks = null;
 let tasksFiltered = [];
@@ -87,8 +88,10 @@ function completeTaskToggle(index) {
 
 function createProject(project) {
   projectsDB.push(project);
+  console.log(projectsDB);
 
   createProjectsDOM();
+  createTasksDOM();
 }
 
 function createTask(task) {
@@ -133,6 +136,13 @@ function taskFormSubmit(action, formData, index) {
   }
 }
 
+function projectFormSubmit(formData) {
+  const project = {};
+  formData.forEach((value, key) => (project[key] = value));
+  
+  addProject(project.title);
+}
+
 function formatDateToString(date) {
   return format(date, "yyyy-MM-dd");
 }
@@ -142,4 +152,4 @@ function getProjectTitle(index) {
   return projects[index].title;
 }
 
-export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit, formatDateToString, getProjectTitle, createProject };
+export { getTask, getProjects, filterTasks, formatTasksUI, completeTaskToggle, createTask, deleteTask, taskFormSubmit, projectFormSubmit, formatDateToString, getProjectTitle, createProject };

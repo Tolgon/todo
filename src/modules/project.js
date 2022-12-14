@@ -4,7 +4,7 @@ import { createProject } from './data.js';
 // Project Creation will be here.
 class Project {
   constructor(title) {
-    this.id = uuidv4();
+    this.id = Math.floor(Math.random() * 100000);
     this.title = title;
   }
 }

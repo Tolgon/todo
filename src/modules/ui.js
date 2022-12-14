@@ -1,13 +1,43 @@
-import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, taskFormSubmit, getTask, formatDateToString, getProjectTitle } from './data.js';
+import { completeTaskToggle, deleteTask, filterTasks, getProjects, formatTasksUI, taskFormSubmit, getTask, formatDateToString, getProjectTitle, projectFormSubmit } from './data.js';
 import { taskTemplate } from '../templates/task-template.js';
 import { taskFormTemplate } from '../templates/task-form-template.js';
+import { projectFormTemplate } from '../templates/project-form-template.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'
-// import '@fortawesome/fontawesome-free/js/regular'
 
 let currentFilter = null;
 let editIndex = null;
+
+function toggleProjectForm(toggle) {
+  const formContainer = document.querySelector(".project-form-wrapper");
+
+  formContainer.innerHTML = projectFormTemplate();
+
+  const form = document.getElementById("project-form");
+  const addButton = document.getElementById("project-add-button");
+  const cancelButton = document.getElementById("project-cancel-button");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+  })
+
+  addButton.addEventListener("click", () => {
+    const formData = new FormData(form);
+    projectFormSubmit(formData);
+    formContainer.style.display = "none";
+  })
+
+  cancelButton.addEventListener("click", () => {
+    formContainer.style.display = "none";
+  })
+
+  if(toggle) {
+    formContainer.style.display = "block";
+  } else {
+    formContainer.style.display = "none";
+  }
+}
 
 function toggleModal(toggle, action) {
   const modalWrapper = document.getElementsByClassName("modal-wrapper");
@@ -57,26 +87,35 @@ function setFormValues(values) {
   form["project"].value = values.project;
 }
 
+let navButtons;
+
 function initiateEvents() {
-  const navButtons = document.querySelectorAll(".nav-button");
+  const projectAddButton = document.getElementById("project-add");
   const taskAddButton = document.getElementById("task-add");
   const modalCloseButton = document.getElementById("modal-close");
   const taskView = document.querySelectorAll(".task");
   const editButtons = document.querySelectorAll(".fa-edit");
   const deleteButtons = document.querySelectorAll(".fa-delete");
   const completeButtons = document.querySelectorAll(".fa-complete");
+  navButtons = document.querySelectorAll(".nav-button");
 
   navButtons.forEach(button => {
     button.addEventListener("click", (e) => {
       if(e.target.classList.contains("active")) return;
+      console.log(button);
       setActiveNavButton(button);
       if(button.dataset.filter) {
         currentFilter = button.dataset.filter;
-      } else {
+      } else if(button.dataset.project) {
         currentFilter = button.dataset.project;
       }
       createTasksDOM(currentFilter);
     })
+  })
+
+
+  projectAddButton.addEventListener("click", () => {
+    toggleProjectForm(true);
   })
 
   taskAddButton.addEventListener("click", () => {
@@ -178,10 +217,10 @@ function createTasksDOM(filter) {
   const filterTitle = document.getElementById("filter-title");
 
   if(!filter) filter = "all";
-  if(!isNaN(filter)) {
-    filterTitle.innerHTML = getProjectTitle(filter);
-  } else {
+  if(isNaN(filter)) {
     filterTitle.innerHTML = filter;
+  } else {
+    filterTitle.innerHTML = getProjectTitle(filter);
   }
   taskContainer.innerHTML = "";
   taskCompletedContainer.innerHTML = "";
